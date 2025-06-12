@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutri Pequenos Passos - Agendamento e Planos</title>
+    <style>
+        /* Cores em tons pastel - Rosa */
+        :root {
+            --cor-principal-pastel: #F0B8C8; /* Rosa pastel suave */
+            --cor-secundaria-pastel: #F7DDE5; /* Rosa pastel mais claro */
+            --cor-destaque-pastel: #E6A0B5; /* Rosa pastel um pouco mais escuro */
+            --cor-texto-escuro: #4A4A4A;
+            --cor-texto-claro: #FFFFFF;
+            --cor-fundo-claro: #FDFBFC; /* Fundo quase branco para combinar com o rosa */
+            --cor-borda: #F0E0E5; /* Borda suave para o rosa */
+            --cor-icone-social: #777777; /* Cor para ícones de redes sociais */
+        }
+
+        /* Estilos CSS para o aplicativo */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--cor-fundo-claro);
+            color: var(--cor-texto-escuro);
+        }
+        header {
+            background-color: var(--cor-principal-pastel);
+            color: var(--cor-texto-claro);
+            padding: 1em 0; /* Reduzido um pouco para acomodar o logo */
+            text-align: center;
+            display: flex; /* Para alinhar o logo e o texto */
+            flex-direction: column; /* Organizar em coluna */
+            align-items: center; /* Centralizar horizontalmente */
+            justify-content: center;
+        }
+        .header-logo {
+            margin-bottom: 10px; /* Espaço abaixo do logo */
+        }
+        .header-logo img {
+            max-width: 150px; /* Ajuste o tamanho do logo conforme necessário */
+            height: auto;
+            border-radius: 50%; /* Se o logo tiver fundo, pode ser arredondado */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        header p {
+            margin-top: 0.5em;
+            font-size: 1.1em;
+        }
+        nav {
+            background-color: var(--cor-secundaria-pastel);
+            padding: 0.7em 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        nav a {
+            color: var(--cor-texto-escuro);
+            padding: 0.7em 1.2em;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: var(--cor-destaque-pastel);
+            border-radius: 4px;
+        }
+        .container {
+            width: 85%;
+            max-width: 960px;
+            margin: 2.5em auto;
+            background-color: var(--cor-texto-claro);
+            padding: 2.5em;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+        }
+        h2 {
+            color: var(--cor-principal-pastel);
+            text-align: center;
+            margin-bottom: 2em;
+            font-size: 2em;
+        }
+        form label {
+            display: block;
+            margin-bottom: 0.6em;
+            font-weight: bold;
+            color: var(--cor-texto-escuro);
+        }
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="tel"],
+        form input[type="datetime-local"],
+        form textarea {
+            width: calc(100% - 24px); /* Ajuste para padding e border */
+            padding: 12px;
+            margin-bottom: 1.2em;
+            border: 1px solid var(--cor-borda);
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        form button {
+            background-color: var(--cor-principal-pastel);
+            color: var(--cor-texto-claro);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: block;
+            width: 100%;
+            margin-top: 1.5em;
+            transition: background-color 0.3s ease;
+        }
+        form button:hover {
+            background-color: var(--cor-destaque-pastel);
+        }
+
+        .planos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 2.5em;
+        }
+        .plano-card {
+            background-color: var(--cor-fundo-claro);
+            border: 1px solid var(--cor-borda);
+            border-radius: 10px;
+            padding: 2em;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        .plano-card:hover {
+            transform: translateY(-5px);
+        }
+        .plano-card h3 {
+            color: var(--cor-principal-pastel);
+            margin-bottom: 0.8em;
+            font-size: 1.8em;
+        }
+        .plano-card .valor {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: var(--cor-destaque-pastel);
+            margin-bottom: 1em;
+        }
+        .plano-card ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin-top: 1.5em;
+            border-top: 1px dashed var(--cor-borda);
+            padding-top: 1.5em;
+        }
+        .plano-card ul li {
+            margin-bottom: 0.7em;
+            color: var(--cor-texto-escuro);
+            font-size: 1.05em;
+        }
+        .plano-card ul li:before {
+            content: '🌸 '; /* Ícone de flor para os itens - combina com rosa */
+            color: var(--cor-destaque-pastel);
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .social-media {
+            text-align: center;
+            margin-top: 3em;
+            padding-top: 2em;
+            border-top: 1px dashed var(--cor-borda); /* Separador para redes sociais */
+        }
+        .social-media h3 {
+            color: var(--cor-principal-pastel);
+            margin-bottom: 1.5em;
+            font-size: 1.8em;
+        }
+        .social-icons a {
+            display: inline-block;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .social-icons a:hover {
+            transform: translateY(-5px);
+        }
+        .social-icons img {
+            width: 50px; /* Tamanho dos ícones */
+            height: 50px;
+            border-radius: 50%; /* Ícones arredondados */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5em 0;
+            margin-top: 3em;
+            background-color: var(--cor-principal-pastel);
+            color: var(--cor-texto-claro);
+            font-size: 0.95em;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-logo">
+            <img src="logo.jpg" alt="Logo Nutri Pequenos Passos">
+        </div>
+        <h1>Nutri Pequenos Passos</h1>
+        <p>Sua jornada saudável, passo a passo.</p>
+    </header>
+
+    <nav>
+        <a href="#agendamento">Agendar Consulta</a>
+        <a href="#planos">Nossos Planos</a>
+        <a href="#redes-sociais">Redes Sociais</a>
+    </nav>
+
+    <div class="container" id="agendamento">
+        <h2>Agende sua Consulta</h2>
+        <form id="formAgendamento" action="https://formspree.io/f/xjkryqrp" method="POST">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="_replyto" required>
+
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX" required>
+
+            <label for="dataHora">Data e Hora Preferencial:</label>
+            <input type="datetime-local" id="dataHora" name="dataHora" required>
+
+            <label for="mensagem">Mensagem (opcional):</label>
+            <textarea id="mensagem" name="mensagem" rows="4" placeholder="Alguma observação ou pergunta?"></textarea>
+
+            <input type="hidden" name="_subject" value="Novo Agendamento Nutri Pequenos Passos!">
+
+            <button type="submit">Solicitar Agendamento</button>
+        </form>
+    </div>
+
+    <div class="container" id="planos">
+        <h2>Nossos Planos de Nutrição</h2>
+        <div class="planos-grid">
+            <div class="plano-card">
+                <h3>Plano Essencial</h3>
+                <div class="valor">R$ 150/mês</div>
+                <ul>
+                    <li>🌸 Consulta inicial completa</li>
+                    <li>🌸 Plano alimentar personalizado</li>
+                    <li>🌸 Suporte via e-mail (1 vez/semana)</li>
+                    <li>🌸 Acesso a materiais educativos</li>
+                </ul>
+            </div>
+
+            <div class="plano-card">
+                <h3>Plano Equilíbrio</h3>
+                <div class="valor">R$ 250/mês</div>
+                <ul>
+                    <li>🌸 Tudo do Plano Essencial</li>
+                    <li>🌸 Duas consultas de acompanhamento/mês</li>
+                    <li>🌸 Suporte via WhatsApp (resposta em 24h)</li>
+                    <li>🌸 Reavaliação de plano alimentar mensal</li>
+                    <li>🌸 Bônus: E-book de receitas saudáveis</li>
+                </ul>
+            </div>
+
+            <div class="plano-card">
+                <h3>Plano Transformação</h3>
+                <div class="valor">R$ 400/mês</div>
+                <ul>
+                    <li>🌸 Tudo do Plano Equilíbrio</li>
+                    <li>🌸 Consultas semanais</li>
+                    <li>🌸 Suporte prioritário via WhatsApp</li>
+                    <li>🌸 Acompanhamento de exames laboratoriais</li>
+                    <li>🌸 Receitas exclusivas e personalizadas</li>
+                    <li>🌸 Acesso a grupo VIP de apoio</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="redes-sociais">
+        <div class="social-media">
+            <h3>Conecte-se com a Nutri Pequenos Passos!</h3>
+            <p>Siga-nos nas redes sociais para dicas, novidades e muito mais:</p>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/nutripequenospassos/" target="_blank" aria-label="Instagram Nutri Pequenos Passos">
+                    <img src="Instagram_icon.png" alt="Ícone do Instagram">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61572299105703" target="_blank" aria-label="Facebook Nutri Pequenos Passos">
+                    <img src="facebookicone.png" alt="Ícone do Facebook">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Nutri Pequenos Passos. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // O JavaScript de envio de formulário local foi removido,
+        // pois o Formspree agora lida com isso.
+    </script>
+</body>
+</html>
